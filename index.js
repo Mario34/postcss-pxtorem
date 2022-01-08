@@ -10,7 +10,8 @@ const defaults = {
   replace: true,
   mediaQuery: false,
   minPixelValue: 0,
-  exclude: null
+  exclude: null,
+  unit: "rem"
 };
 
 const legacyOptions = {
@@ -43,13 +44,13 @@ function convertLegacyOptions(options) {
   });
 }
 
-function createPxReplace(rootValue, unitPrecision, minPixelValue) {
+function createPxReplace(rootValue, unitPrecision, minPixelValue, unit) {
   return (m, $1) => {
     if (!$1) return m;
     const pixels = parseFloat($1);
     if (pixels < minPixelValue) return m;
     const fixedVal = toFixed(pixels / rootValue, unitPrecision);
-    return fixedVal === 0 ? "0" : fixedVal + "rem";
+    return fixedVal === 0 ? "0" : fixedVal + unit;
   };
 }
 
@@ -145,7 +146,8 @@ module.exports = (options = {}) => {
       pxReplace = createPxReplace(
         rootValue,
         opts.unitPrecision,
-        opts.minPixelValue
+        opts.minPixelValue,
+        opts.unit
       );
     },
     Declaration(decl) {
@@ -157,7 +159,6 @@ module.exports = (options = {}) => {
         blacklistedSelector(opts.selectorBlackList, decl.parent.selector)
       )
         return;
-
       const value = decl.value.replace(pxRegex, pxReplace);
 
       // if rem unit already exists, do not add or replace
