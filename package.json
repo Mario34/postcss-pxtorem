@@ -1,14 +1,14 @@
 {
-  "name": "postcss-pxtorem",
-  "description": "A CSS post-processor that converts px to rem.",
-  "version": "6.0.0",
-  "author": "cuth",
+  "name": "@mario34/postcss-unit-transform",
+  "description": "A CSS post-processor that converts px to any unit.",
+  "version": "1.0.0",
+  "author": "Mario34",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:cuth/postcss-pxtorem.git"
+    "url": "git@github.com:Mario34/postcss-unit-transform.git"
   },
-  "bugs": "https://github.com/cuth/postcss-pxtorem/issues",
+  "bugs": "https://github.com/Mario34/postcss-unit-transform/issues",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",

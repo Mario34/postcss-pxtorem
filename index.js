@@ -125,7 +125,7 @@ module.exports = (options = {}) => {
   let isExcludeFile = false;
   let pxReplace;
   return {
-    postcssPlugin: "postcss-pxtorem",
+    postcssPlugin: "postcss-unit-transform",
     Once(css) {
       const filePath = css.source.input.file;
       if (
