@@ -1,6 +1,6 @@
-# postcss-pxtorem [![NPM version](https://badge.fury.io/js/@mario34%2Fpostcss-unit-transform.svg)](https://badge.fury.io/js/@mario34%2Fpostcss-unit-transform)
+# @mario34/postcss-unit-transform [![NPM version](https://badge.fury.io/js/@mario34%2Fpostcss-unit-transform.svg)](https://badge.fury.io/js/@mario34/postcss-unit-transform)
 
-> 在postcss-pxtorem的基础上新增了自定义单位
+> 在postcss-pxtorem的基础上新增了自定义单位 `unit` 选项
 
 A plugin for [PostCSS](https://github.com/ai/postcss) that generates rem units from pixel units.
 
@@ -8,53 +8,6 @@ A plugin for [PostCSS](https://github.com/ai/postcss) that generates rem units f
 
 ```shell
 $ npm install postcss @mario34/postcss-unit-transform --save-dev
-```
-
-## Usage
-
-Pixels are the easiest unit to use (*opinion*). The only issue with them is that they don't let browsers change the default font size of 16. This script converts every px value to a rem from the properties you choose to allow the browser to set the font size.
-
-
-### Input/Output
-
-*With the default settings, only font related properties are targeted.*
-
-```css
-// input
-h1 {
-    margin: 0 0 20px;
-    font-size: 32px;
-    line-height: 1.2;
-    letter-spacing: 1px;
-}
-
-// output
-h1 {
-    margin: 0 0 20px;
-    font-size: 2rem;
-    line-height: 1.2;
-    letter-spacing: 0.0625rem;
-}
-```
-
-### Example
-
-```js
-var fs = require('fs');
-var postcss = require('postcss');
-var pxtorem = require('postcss-pxtorem');
-var css = fs.readFileSync('main.css', 'utf8');
-var options = {
-    replace: false
-};
-var processedCss = postcss(pxtorem(options)).process(css).css;
-
-fs.writeFile('main-rem.css', processedCss, function (err) {
-  if (err) {
-    throw err;
-  }
-  console.log('Rem file written.');
-});
 ```
 
 ### options
@@ -70,7 +23,8 @@ Default:
     replace: true,
     mediaQuery: false,
     minPixelValue: 0,
-    exclude: /node_modules/i
+    exclude: /node_modules/i,
+    unit: 'rem'
 }
 ```
 
@@ -98,44 +52,5 @@ Default:
     - If value is function, you can use exclude function to return a true and the file will be ignored.
         - the callback will pass the file path as  a parameter, it should returns a Boolean result.
         - `function (file) { return file.indexOf('exclude') !== -1; }`
+- `unit` (String) 任意的单位，默认是rem（可以根据需要替换成任意单位，如vw,rpx）
 
-### Use with gulp-postcss and autoprefixer
-
-```js
-var gulp = require('gulp');
-var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
-var pxtorem = require('postcss-pxtorem');
-
-gulp.task('css', function () {
-
-    var processors = [
-        autoprefixer({
-            browsers: 'last 1 version'
-        }),
-        pxtorem({
-            replace: false
-        })
-    ];
-
-    return gulp.src(['build/css/**/*.css'])
-        .pipe(postcss(processors))
-        .pipe(gulp.dest('build/css'));
-});
-```
-
-### A message about ignoring properties
-Currently, the easiest way to have a single property ignored is to use a capital in the pixel unit declaration.
-
-```css
-// `px` is converted to `rem`
-.convert {
-    font-size: 16px; // converted to 1rem
-}
-
-// `Px` or `PX` is ignored by `postcss-pxtorem` but still accepted by browsers
-.ignore {
-    border: 1Px solid; // ignored
-    border-width: 2PX; // ignored
-}
-```
