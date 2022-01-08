@@ -1,11 +1,13 @@
-# postcss-pxtorem [![NPM version](https://badge.fury.io/js/postcss-pxtorem.svg)](http://badge.fury.io/js/postcss-pxtorem)
+# postcss-pxtorem [![NPM version](https://badge.fury.io/js/@mario34%2Fpostcss-unit-transform.svg)](https://badge.fury.io/js/@mario34%2Fpostcss-unit-transform)
+
+> 在postcss-pxtorem的基础上新增了自定义单位
 
 A plugin for [PostCSS](https://github.com/ai/postcss) that generates rem units from pixel units.
 
 ## Install
 
 ```shell
-$ npm install postcss postcss-pxtorem --save-dev
+$ npm install postcss @mario34/postcss-unit-transform --save-dev
 ```
 
 ## Usage
